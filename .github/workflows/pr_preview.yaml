@@ -16,8 +16,10 @@ jobs:
       matrix:
         node-version: [14.x]
     env:
-      depth: 18
-      amount: 100
+      DEPTH: 18
+      AMOUNT: 100
+      REACT_APP_BEE_HOST: http://165.227.165.55:1633
+      REACT_APP_BEE_DEBUG_HOST: http://165.227.165.55:1635
 
     steps:
       - uses: actions/checkout@v2
@@ -50,7 +52,7 @@ jobs:
 
       - name: Upload to Swarm
         run: |
-          STAMP=$(swarm-cli stamp buy --depth ${{ env.depth }} --amount ${{ env.amount }}  --bee-debug-api-url http://165.227.165.55:1635 --quiet)
+          STAMP=$(swarm-cli stamp buy --depth ${{ env.DEPTH }} --amount ${{ env.AMOUNT }}  --bee-debug-api-url ${{ env.REACT_APP_BEE_DEBUG_HOST }} --quiet)
           sleep 30
-          HASH=$(swarm-cli upload ./build --bee-api-url http://165.227.165.55:1633 --quiet --stamp $STAMP)
-          echo "http://165.227.165.55:1633/bzz/$HASH"
+          HASH=$(swarm-cli upload ./build --bee-api-url ${{ env.REACT_APP_BEE_HOST }} --quiet --stamp $STAMP)
+          echo "${{ env.REACT_APP_BEE_HOST }}/bzz/$HASH"
