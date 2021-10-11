@@ -15,6 +15,9 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
+    env:
+      depth: 18
+      amount: 100
 
     steps:
       - uses: actions/checkout@v2
@@ -47,4 +50,7 @@ jobs:
 
       - name: Upload to Swarm
         run: |
-          swarm-cli upload ./build --bee-api-url https://bee-0.gateway.ethswarm.org --quiet --stamp 0000000000000000000000000000000000000000000000000000000000000000
+          STAMP=$(swarm-cli stamp buy --depth ${{ env.depth }} --amount ${{ env.amount }}  --bee-debug-api-url http://165.227.165.55:1635 --quiet)
+          sleep 30
+          HASH=$(swarm-cli upload ./build --bee-api-url http://165.227.165.55:1633 --quiet --stamp $STAMP)
+          echo "http://165.227.165.55:1633/bzz/$HASH"
