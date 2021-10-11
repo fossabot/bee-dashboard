@@ -9,7 +9,7 @@ on:
       - '**'
 
 jobs:
-  check:
+  upload-preview:
     runs-on: ubuntu-latest
 
     strategy:
