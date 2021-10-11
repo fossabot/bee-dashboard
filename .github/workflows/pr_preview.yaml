@@ -73,5 +73,4 @@ jobs:
           body: |
             PR preview in Swarm
             ${{ env.PREVIEW_URL }}
-            git hash: ${{ github.event.payload.head }}
           edit-mode: replace
