@@ -60,10 +60,10 @@ jobs:
           git_branch=${GITHUB_REF#refs/heads/}
           git_message=$(git log -2 --pretty=%B)
 
-          echo "PREVIEW_URL=\"${{ env.REACT_APP_BEE_HOST }}/bzz/$HASH\"" >> $GITHUB_ENV
-          echo "GIT_HASH=\"$git_hash\"" >> $GITHUB_ENV
-          echo "GIT_MESSAGE=\"$git_message\"" >> $GITHUB_ENV
-          echo "GIT_BRANCH=\"$git_branch\"" >> $GITHUB_ENV
+          echo "PREVIEW_URL='${{ env.REACT_APP_BEE_HOST }}/bzz/$HASH'" >> $GITHUB_ENV
+          echo "GIT_HASH='$git_hash'" >> $GITHUB_ENV
+          echo "GIT_MESSAGE='$git_message'" >> $GITHUB_ENV
+          echo "GIT_BRANCH='$git_branch'" >> $GITHUB_ENV
 
       - name: Find preview comment
         uses: peter-evans/find-comment@v1
