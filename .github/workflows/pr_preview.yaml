@@ -56,12 +56,11 @@ jobs:
           sleep 30
           HASH=$(swarm-cli upload ./build --bee-api-url ${{ env.REACT_APP_BEE_HOST }} --quiet --stamp $STAMP)
 
-          git_hash=$(git rev-parse --short "$GITHUB_SHA")
-          git_message=$(git log -2 --pretty=%B)
           git_branch=${GITHUB_REF#refs/heads/}
+          git_message=$(git log -1 --pretty=%B)
 
           echo "PREVIEW_URL=${{ env.REACT_APP_BEE_HOST }}/bzz/$HASH" >> $GITHUB_ENV
-          echo "GIT_HASH=$git_hash" >> $GITHUB_ENV
+          echo "GIT_HASH=$GITHUB_SHA" >> $GITHUB_ENV
           echo "GIT_MESSAGE=$git_message" >> $GITHUB_ENV
           echo "GIT_BRANCH=$git_branch" >> $GITHUB_ENV
 
