@@ -18,9 +18,9 @@ jobs:
     env:
       DEPTH: 18
       AMOUNT: 100
-      REACT_APP_BEE_HOST: http://165.227.165.55:1633
-      REACT_APP_BEE_DEBUG_HOST: http://165.227.165.55:1635
-      GATEWAY: http://bee-0.gateway.ethswarm.org
+      REACT_APP_BEE_HOST: https://bee.simetka.cz
+      REACT_APP_BEE_DEBUG_HOST: https://debug.bee.simetka.cz
+      GATEWAY: https://bee-0.gateway.ethswarm.org
 
     steps:
       - uses: actions/checkout@v2
