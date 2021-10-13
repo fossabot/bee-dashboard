@@ -20,6 +20,7 @@ jobs:
       AMOUNT: 100
       REACT_APP_BEE_HOST: http://165.227.165.55:1633
       REACT_APP_BEE_DEBUG_HOST: http://165.227.165.55:1635
+      GATEWAY: http://bee-0.gateway.ethswarm.org
 
     steps:
       - uses: actions/checkout@v2
@@ -52,15 +53,13 @@ jobs:
 
       - name: Upload to Swarm
         run: |
-          STAMP=$(swarm-cli stamp buy --depth ${{ env.DEPTH }} --amount ${{ env.AMOUNT }}  --bee-debug-api-url ${{ env.REACT_APP_BEE_DEBUG_HOST }} --quiet)
-          sleep 30
-          HASH=$(swarm-cli upload ./build --bee-api-url ${{ env.REACT_APP_BEE_HOST }} --quiet --stamp $STAMP)
+          HASH=$(swarm-cli upload ./build --bee-api-url ${{ env.GATEWAY }} --quiet --stamp 0000000000000000000000000000000000000000000000000000000000000000)
 
           git_hash=$(git log -1 --skip=1  --pretty=%H | tr -d '\n')
           git_branch=${GITHUB_REF#refs/heads/}
           git_message=$(git log -1 --skip=1  --pretty=%B | tr -d '\n')
 
-          echo "PREVIEW_URL=${{ env.REACT_APP_BEE_HOST }}/bzz/$HASH" >> $GITHUB_ENV
+          echo "PREVIEW_URL=${{ env.GATEWAY }}/bzz/$HASH" >> $GITHUB_ENV
           echo "GIT_HASH=$git_hash" >> $GITHUB_ENV
           echo "GIT_MESSAGE=$git_message" >> $GITHUB_ENV
           echo "GIT_BRANCH=$git_branch" >> $GITHUB_ENV
